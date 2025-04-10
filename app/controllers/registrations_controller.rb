@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
     @school = School.new(school_params)
     @teacher = Teacher.new(teacher_params)
     @teacher.school = @school
-    @teacher.role = 'admin' # First user is always an admin
+    @teacher.role = "admin" # First user is always an admin
 
     if @school.save && @teacher.save
       start_new_session_for @teacher
