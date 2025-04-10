@@ -22,8 +22,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+  <body >
+    <%# Show navbar only when user is logged in %>
+    <%= render "shared/navbar" if current_user %>
+  
+    <main class="container mx-auto px-5 py-8">
       <%= yield %>
     </main>
   </body>
