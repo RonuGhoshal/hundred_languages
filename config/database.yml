@@ -1,0 +1,35 @@
+default: &default
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: hundred_languages_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: hundred_languages_test
+
+
+# Store production database in the storage/ directory, which by default
+# is mounted as a persistent Docker volume in config/deploy.yml.
+production:
+  primary:
+    <<: *default
+    database: hundred_languages_production
+  cache:
+    <<: *default
+    database: hundred_languages_production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: hundred_languages_production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: hundred_languages_production_cable
+    migrations_paths: db/cable_migrate
