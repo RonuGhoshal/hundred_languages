@@ -28,4 +28,4 @@ class SchoolsController < ApplicationController
       redirect_to root_path, alert: "You must be an admin to perform this action."
     end
   end
-end 
+end
