@@ -31,12 +31,14 @@ class InvitationsController < ApplicationController
       end
     end
 
-    if success_count > 0
-      notice = "Successfully invited #{success_count} teacher#{'s' if success_count > 1}"
-      notice += ". #{error_messages.join(', ')}" if error_messages.any?
-      redirect_to root_path, notice: notice
-    else
-      redirect_to root_path, alert: "Failed to send any invitations. #{error_messages.join(', ')}"
+    respond_to do |format|
+      if success_count > 0
+        notice = "Successfully invited #{success_count} teacher#{'s' if success_count > 1}"
+        notice += ". #{error_messages.join(', ')}" if error_messages.any?
+        format.json { render json: { notice: notice }, status: :ok }
+      else
+        format.json { render json: { alert: "Failed to send any invitations. #{error_messages.join(', ')}" }, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -44,7 +46,9 @@ class InvitationsController < ApplicationController
 
   def require_admin
     unless current_user&.admin?
-      redirect_to root_path, alert: "You don't have permission to invite teachers."
+      respond_to do |format|
+        format.json { render json: { alert: "You don't have permission to invite teachers." }, status: :forbidden }
+      end
     end
   end
 end 
