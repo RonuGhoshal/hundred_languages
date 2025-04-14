@@ -14,11 +14,20 @@ class PasswordsController < ApplicationController
   end
 
   def edit
+    if @teacher.invitation_token.present?
+      @is_invitation = true
+    end
   end
 
   def update
     if @teacher.update(params.permit(:password, :password_confirmation))
-      redirect_to new_session_path, notice: "Password has been reset."
+      if @teacher.invitation_token.present?
+        @teacher.update(invitation_token: nil)
+        start_new_session_for @teacher
+        redirect_to root_path, notice: "Your account has been set up successfully."
+      else
+        redirect_to new_session_path, notice: "Password has been reset."
+      end
     else
       redirect_to edit_password_path(params[:token]), alert: "Passwords did not match."
     end
@@ -26,8 +35,8 @@ class PasswordsController < ApplicationController
 
   private
     def set_teacher_by_token
-      @teacher = Teacher.find_by_password_reset_token!(params[:token])
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
+      @teacher = Teacher.find_by_invitation_token!(params[:token])
+    rescue ActiveRecord::RecordNotFound
       redirect_to new_password_path, alert: "Password reset link is invalid or has expired."
     end
 end

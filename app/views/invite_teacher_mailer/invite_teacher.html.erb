@@ -1,8 +1,14 @@
-<h1>Welcome to Hundred Languages, <%= @teacher_first_name %></h1>
+<h1>Welcome to Hundred Languages, <%= @teacher.first_name %></h1>
+
 <p>
-  <%= @sender %> has invited you to join Hundred Languages.
+  <%= @sender %> has invited you to join <%= @school.name %> on Hundred Languages.
 </p>
+
 <p>
-  To login to the site, just follow this link: <%= link_to 'login', new_session_url %>.
+  To set up your account, please follow this link: 
+  <%= link_to "Set up your account", edit_password_url(@teacher.invitation_token) %>.
 </p>
+
+<p>This link will expire in 24 hours.</p>
+
 <p>Thanks for joining and have a great day!</p>
