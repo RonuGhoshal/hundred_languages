@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resource :session
   resource :registration, only: %i[new create]
   resources :passwords, param: :token
+  resources :invitations, only: [:create]
   resources :schools, only: [ :edit, :update ]
   resources :schools do
     resources :classrooms, only: [ :create ]

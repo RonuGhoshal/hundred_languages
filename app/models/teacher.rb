@@ -30,11 +30,13 @@ class Teacher < ApplicationRecord
     role == "teacher"
   end
 
-  def self.invite(email:, school:, invited_by:)
+  def self.invite(email:, school:, invited_by:, first_name:, last_name:)
     return unless invited_by.admin?
 
     teacher = Teacher.new(
       email_address: email,
+      first_name: first_name,
+      last_name: last_name,
       school: school,
       role: "teacher",
       password: SecureRandom.hex(10) # temporary password
@@ -43,7 +45,7 @@ class Teacher < ApplicationRecord
     if teacher.save
       # You would typically send an email here with the invitation token
       # TeacherMailer.invitation_email(teacher).deliver_later
-      teacher
+      InviteTeacherMailer.invite_teacher(teacher, invited_by).deliver_later
     end
   end
 end

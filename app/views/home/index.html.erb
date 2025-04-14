@@ -1,10 +1,10 @@
-<div class="min-h-screen bg-rose-50 py-10 px-4 sm:px-8">
+<div class="min-h-screen bg-rose-50 py-10 px-4 sm:px-8" data-controller="home">
   <div class="max-w-6xl mx-auto">
     <!-- Greeting -->
     <h1 class="text-4xl font-extrabold text-rose-800 mb-2">
       Welcome<% if current_user %>, <%= current_user.first_name %><% end %>!
     </h1>
-    <p class="text-lg text-rose-700 mb-8">Let’s nurture young minds together today.</p>
+    <p class="text-lg text-rose-700 mb-8">Let's nurture young minds together today.</p>
 
     <!-- Quick Actions -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
@@ -16,10 +16,97 @@
         <h2 class="text-rose-700 font-semibold text-xl mb-2">👧 Students</h2>
         <p class="text-sm text-rose-500">View and manage your students</p>
       </a>
-      <a href="#" class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 text-center transition duration-200 border border-rose-200">
-        <h2 class="text-rose-700 font-semibold text-xl mb-2">👩🏽‍🏫 Invite Teachers</h2>
-        <p class="text-sm text-rose-500">Add teachers to your classroom</p>
-      </a>
+      <% if current_user&.admin? %>
+        <a href="#" 
+           data-action="click->home#toggleInviteTeachers"
+           class="bg-white shadow-md hover:shadow-lg rounded-2xl p-6 text-center transition duration-200 border border-rose-200">
+          <h2 class="text-rose-700 font-semibold text-xl mb-2">👩🏽‍🏫 Invite Teachers</h2>
+          <p class="text-sm text-rose-500">Add teachers to your school</p>
+        </a>
+      <% end %>
+    </div>
+
+    <div id="invite-teachers" 
+         data-home-target="inviteTeachers"
+         class="hidden bg-white rounded-2xl shadow-md p-6 mb-8 border border-rose-200">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-semibold text-rose-700">Invite Teachers</h3>
+        <button type="button" 
+                data-action="click->home#addTeacherRow"
+                class="text-rose-600 hover:text-rose-700 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+          Add Teacher
+        </button>
+      </div>
+
+      <%= form_with url: invitations_path, class: "space-y-4" do |form| %>
+        <div data-home-target="teacherTarget">
+          <%= form.fields_for :teachers, Teacher.new do |teacher| %>
+            <div class="bg-rose-50 rounded-lg p-4 border border-rose-200 teacher-row">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <%= teacher.label :email_address, "Email", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                  <%= teacher.email_field :email_address, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                </div>
+                <div>
+                  <%= teacher.label :first_name, "First Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                  <%= teacher.text_field :first_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                </div>
+                <div>
+                  <%= teacher.label :last_name, "Last Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                  <%= teacher.text_field :last_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                </div>
+              </div>
+              <div class="mt-2 flex justify-end">
+                <button type="button" 
+                        data-action="click->home#removeTeacherRow"
+                        class="text-red-600 hover:text-red-700 text-sm">
+                  Remove
+                </button>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <template data-home-target="teacherTemplate">
+          <%= form.fields_for :teachers, Teacher.new, child_index: 'NEW_RECORD' do |teacher| %>
+            <div class="bg-rose-50 rounded-lg p-4 border border-rose-200 teacher-row">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <%= teacher.label :email_address, "Email", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                  <%= teacher.email_field :email_address, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                </div>
+                <div>
+                  <%= teacher.label :first_name, "First Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                  <%= teacher.text_field :first_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                </div>
+                <div>
+                  <%= teacher.label :last_name, "Last Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                  <%= teacher.text_field :last_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                </div>
+              </div>
+              <div class="mt-2 flex justify-end">
+                <button type="button" 
+                        data-action="click->home#removeTeacherRow"
+                        class="text-red-600 hover:text-red-700 text-sm">
+                  Remove
+                </button>
+              </div>
+            </div>
+          <% end %>
+        </template>
+
+        <div class="flex justify-end gap-4">
+          <button type="button" 
+                  data-action="click->home#toggleInviteTeachers"
+                  class="text-rose-600 hover:text-rose-700">
+            Cancel
+          </button>
+          <%= form.submit "Send Invitations", class: "bg-rose-600 text-white py-2 px-4 rounded-lg hover:bg-rose-700 transition" %>
+        </div>
+      <% end %>
     </div>
 
     <!-- Classroom Overview -->
