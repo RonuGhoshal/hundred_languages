@@ -30,11 +30,11 @@ class Teacher < ApplicationRecord
     role == "teacher"
   end
 
-  def self.invite(email:, school:, invited_by:, first_name:, last_name:)
+  def self.invite(email_address:, school:, invited_by:, first_name:, last_name:)
     return unless invited_by.admin?
 
     teacher = Teacher.new(
-      email_address: email,
+      email_address: email_address,
       first_name: first_name,
       last_name: last_name,
       school: school,

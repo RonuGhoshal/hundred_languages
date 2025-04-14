@@ -7,7 +7,7 @@ class InvitationsController < ApplicationController
 
     params[:teachers].each do |teacher_params|
       teacher = Teacher.invite(
-        email: teacher_params[:email],
+        email_address: teacher_params[:email_address],
         first_name: teacher_params[:first_name],
         last_name: teacher_params[:last_name],
         school: current_user.school,
