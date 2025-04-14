@@ -1,6 +1,6 @@
 class ClassroomsController < ApplicationController
-  before_action :set_school, only: [ :create, :new ]
-  before_action :set_classroom, only: [ :destroy, :show ]
+  before_action :set_school, only: [ :create, :new, :edit, :update ]
+  before_action :set_classroom, only: [ :destroy, :show, :edit, :update ]
 
   def create
     @classroom = @school.classrooms.build(classroom_params)
@@ -14,6 +14,17 @@ class ClassroomsController < ApplicationController
 
   def new
     @classroom = @school.classrooms.build
+  end
+
+  def edit
+  end
+
+  def update
+    if @classroom.update(classroom_params)
+      redirect_to classroom_path(@classroom), notice: "Classroom was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -36,6 +47,11 @@ class ClassroomsController < ApplicationController
   end
 
   def classroom_params
-    params.require(:classroom).permit(:name, :school_year, teachers_attributes: [ :email_address, :role ], students_attributes: [ :first_name, :last_name, :dob, contacts_attributes: [ :name, :phone, :email, :relationship ] ])
+    params.require(:classroom).permit(
+      :name, 
+      :school_year,
+      classrooms_teachers_attributes: [:id, :teacher_id, :_destroy],
+      students_attributes: [ :first_name, :last_name, :dob, contacts_attributes: [ :name, :phone, :email, :relationship ] ]
+    )
   end
 end

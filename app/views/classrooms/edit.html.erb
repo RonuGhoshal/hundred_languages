@@ -1,0 +1,226 @@
+<div class="min-h-screen bg-rose-50 py-10 px-4 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+    <!-- Page Header -->
+    <div class="bg-white rounded-2xl shadow-md p-6 mb-8 border border-rose-100">
+      <h1 class="text-3xl font-bold text-rose-800">Edit Classroom</h1>
+      <p class="text-rose-600 mt-1">Update the classroom details below</p>
+    </div>
+
+    <%= form_with(model: [@classroom], class: "space-y-8") do |f| %>
+      <!-- Classroom Details Section -->
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-rose-100">
+        <h2 class="text-2xl font-semibold text-rose-700 mb-6">Classroom Details</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="w-full">
+            <%= f.label :name, "Classroom Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+            <%= f.text_field :name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true, placeholder: "Enter classroom name" %>
+          </div>
+          
+          <div class="w-full">
+            <%= f.label :school_year, "School Year", class: "block text-sm font-medium text-rose-700 mb-1" %>
+            <%= f.text_field :school_year, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true, placeholder: "e.g. 2023-2024" %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teachers Section -->
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-rose-100">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-semibold text-rose-700">Teachers</h2>
+        </div>
+
+        <div data-controller="classroom">
+          <div class="flex justify-end mb-4">
+            <button 
+              type="button" 
+              data-action="click->classroom#addTeacher"
+              class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition duration-200">
+              Add Teacher
+            </button>
+          </div>
+
+          <template data-classroom-target="teacherTemplate">
+            <%= f.fields_for :classrooms_teachers, ClassroomsTeacher.new, child_index: 'NEW_RECORD' do |teacher_fields| %>
+              <div class="bg-rose-50 rounded-lg p-4 border border-rose-200 mb-4">
+                <div class="w-full">
+                  <%= teacher_fields.label :teacher_id, "Select Teacher", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                  <%= teacher_fields.collection_select :teacher_id,
+                                                    @school.teachers,
+                                                    :id,
+                                                    :full_name,
+                                                    { prompt: "Choose a teacher" },
+                                                    { class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" } %>
+                </div>
+                <div class="mt-2 flex justify-end">
+                  <button type="button" 
+                          data-action="classroom#removeTeacher"
+                          class="text-red-600 hover:text-red-700 text-sm">
+                    Remove
+                  </button>
+                </div>
+              </div>
+            <% end %>
+          </template>
+
+          <div data-classroom-target="teacherTarget">
+            <% @classroom.classrooms_teachers.each do |classrooms_teacher| %>
+              <%= f.fields_for :classrooms_teachers, classrooms_teacher do |teacher_fields| %>
+                <div class="bg-rose-50 rounded-lg p-4 border border-rose-200 mb-4">
+                  <div class="w-full">
+                    <%= teacher_fields.label :teacher_id, "Select Teacher", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                    <%= teacher_fields.collection_select :teacher_id,
+                                                      @school.teachers,
+                                                      :id,
+                                                      :full_name,
+                                                      { prompt: "Choose a teacher" },
+                                                      { class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" } %>
+                  </div>
+                  <div class="mt-2 flex justify-end">
+                    <button type="button" 
+                            data-action="classroom#removeTeacher"
+                            class="text-red-600 hover:text-red-700 text-sm">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Students Section -->
+      <div class="bg-white rounded-2xl shadow-md p-6 border border-rose-100">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-semibold text-rose-700">Students</h2>
+          <button type="button" 
+                  data-action="classroom#addStudent"
+                  class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 transition duration-200">
+            Add Student
+          </button>
+        </div>
+
+        <div data-controller="classroom">
+          <template data-classroom-target="studentTemplate">
+            <%= f.fields_for :students, Student.new, child_index: 'NEW_RECORD' do |student_fields| %>
+              <div class="bg-rose-50 rounded-lg p-4 border border-rose-200">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <%= student_fields.label :first_name, "First Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                    <%= student_fields.text_field :first_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                  </div>
+                  <div>
+                    <%= student_fields.label :last_name, "Last Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                    <%= student_fields.text_field :last_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                  </div>
+                  <div>
+                    <%= student_fields.label :dob, "Date of Birth", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                    <%= student_fields.date_field :dob, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                  </div>
+                </div>
+
+                <!-- Student Contacts -->
+                <div class="mt-4">
+                  <h3 class="text-lg font-medium text-rose-700 mb-2">Contacts</h3>
+                  <%= student_fields.fields_for :contacts do |contact_fields| %>
+                    <div class="bg-white rounded-lg p-4 border border-rose-200 mt-2">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <%= contact_fields.label :name, "Contact Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                          <%= contact_fields.text_field :name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                        </div>
+                        <div>
+                          <%= contact_fields.label :phone, "Phone Number", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                          <%= contact_fields.telephone_field :phone, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                        </div>
+                        <div>
+                          <%= contact_fields.label :email, "Email", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                          <%= contact_fields.email_field :email, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                        </div>
+                        <div>
+                          <%= contact_fields.label :relationship, "Relationship", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                          <%= contact_fields.text_field :relationship, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="mt-2 flex justify-end">
+                  <button type="button" 
+                          data-action="classroom#removeStudent"
+                          class="text-red-600 hover:text-red-700 text-sm">
+                    Remove
+                  </button>
+                </div>
+              </div>
+            <% end %>
+          </template>
+
+          <div data-classroom-target="studentTarget">
+            <% @classroom.students.each do |student| %>
+              <%= f.fields_for :students, student do |student_fields| %>
+                <div class="bg-rose-50 rounded-lg p-4 border border-rose-200 mb-4">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <%= student_fields.label :first_name, "First Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                      <%= student_fields.text_field :first_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                    </div>
+                    <div>
+                      <%= student_fields.label :last_name, "Last Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                      <%= student_fields.text_field :last_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                    </div>
+                    <div>
+                      <%= student_fields.label :dob, "Date of Birth", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                      <%= student_fields.date_field :dob, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
+                    </div>
+                  </div>
+
+                  <!-- Student Contacts -->
+                  <div class="mt-4">
+                    <h3 class="text-lg font-medium text-rose-700 mb-2">Contacts</h3>
+                    <%= student_fields.fields_for :contacts do |contact_fields| %>
+                      <div class="bg-white rounded-lg p-4 border border-rose-200 mt-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <%= contact_fields.label :name, "Contact Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                            <%= contact_fields.text_field :name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                          </div>
+                          <div>
+                            <%= contact_fields.label :phone, "Phone Number", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                            <%= contact_fields.telephone_field :phone, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                          </div>
+                          <div>
+                            <%= contact_fields.label :email, "Email", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                            <%= contact_fields.email_field :email, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                          </div>
+                          <div>
+                            <%= contact_fields.label :relationship, "Relationship", class: "block text-sm font-medium text-rose-700 mb-1" %>
+                            <%= contact_fields.text_field :relationship, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                  <div class="mt-2 flex justify-end">
+                    <button type="button" 
+                            data-action="classroom#removeStudent"
+                            class="text-red-600 hover:text-red-700 text-sm">
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex justify-end gap-4">
+        <%= link_to "Cancel", classroom_path(@classroom), class: "px-6 py-3 text-rose-600 hover:text-rose-700 border border-rose-200 rounded-lg hover:bg-rose-50 transition duration-200" %>
+        <%= f.submit "Update Classroom", class: "px-6 py-3 bg-rose-600 text-white font-medium rounded-lg hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 transition duration-200" %>
+      </div>
+    <% end %>
+  </div>
+</div> 

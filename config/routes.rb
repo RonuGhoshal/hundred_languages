@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :schools do
     resources :classrooms, only: [ :create ]
   end
-  resources :classrooms, only: [ :show, :new ]
+  resources :classrooms, only: [ :show, :new, :edit, :update ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

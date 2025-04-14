@@ -2,9 +2,10 @@ class Teacher < ApplicationRecord
   has_secure_password
   belongs_to :school
   has_many :sessions, dependent: :destroy
-  has_and_belongs_to_many :classrooms
+  has_many :classrooms_teachers, dependent: :destroy
+  accepts_nested_attributes_for :classrooms_teachers, allow_destroy: true
+  has_many :classrooms, through: :classrooms_teachers
   has_many :students, through: :classrooms
-
   accepts_nested_attributes_for :school
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
@@ -28,6 +29,10 @@ class Teacher < ApplicationRecord
 
   def teacher?
     role == "teacher"
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
   end
 
   def self.invite(email_address:, school:, invited_by:, first_name:, last_name:)
