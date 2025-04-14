@@ -44,57 +44,13 @@
       <%= form_with url: invitations_path, class: "space-y-4" do |form| %>
         <div data-home-target="teacherTarget">
           <%= form.fields_for :teachers, Teacher.new do |teacher| %>
-            <div class="bg-rose-50 rounded-lg p-4 border border-rose-200 teacher-row">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <%= teacher.label :email_address, "Email", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                  <%= teacher.email_field :email_address, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
-                </div>
-                <div>
-                  <%= teacher.label :first_name, "First Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                  <%= teacher.text_field :first_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
-                </div>
-                <div>
-                  <%= teacher.label :last_name, "Last Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                  <%= teacher.text_field :last_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
-                </div>
-              </div>
-              <div class="mt-2 flex justify-end">
-                <button type="button" 
-                        data-action="click->home#removeTeacherRow"
-                        class="text-red-600 hover:text-red-700 text-sm">
-                  Remove
-                </button>
-              </div>
-            </div>
+            <%= render 'teacher_form_fields', teacher: teacher %>
           <% end %>
         </div>
 
         <template data-home-target="teacherTemplate">
           <%= form.fields_for :teachers, Teacher.new, child_index: 'NEW_RECORD' do |teacher| %>
-            <div class="bg-rose-50 rounded-lg p-4 border border-rose-200 teacher-row">
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <%= teacher.label :email_address, "Email", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                  <%= teacher.email_field :email_address, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
-                </div>
-                <div>
-                  <%= teacher.label :first_name, "First Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                  <%= teacher.text_field :first_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
-                </div>
-                <div>
-                  <%= teacher.label :last_name, "Last Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                  <%= teacher.text_field :last_name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
-                </div>
-              </div>
-              <div class="mt-2 flex justify-end">
-                <button type="button" 
-                        data-action="click->home#removeTeacherRow"
-                        class="text-red-600 hover:text-red-700 text-sm">
-                  Remove
-                </button>
-              </div>
-            </div>
+            <%= render 'teacher_form_fields', teacher: teacher %>
           <% end %>
         </template>
 
