@@ -35,18 +35,20 @@
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <% @classroom.teachers.each do |teacher| %>
-          <div class="bg-blue-50 rounded-xl p-4 border border-blue-200 hover:bg-blue-100 transition duration-200">
-            <div class="flex justify-between items-start">
-              <div>
-                <h3 class="text-lg font-semibold text-blue-800">
-                  <%= teacher.first_name %> <%= teacher.last_name %>
-                </h3>
-                <p class="text-sm text-blue-600">
-                  Email: <%= teacher.email_address %>
-                </p>
+          <%= link_to teacher_path(teacher) do %>
+            <div class="bg-blue-50 rounded-xl p-4 border border-blue-200 hover:bg-blue-100 transition duration-200">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="text-lg font-semibold text-blue-800">
+                    <%= teacher.first_name %> <%= teacher.last_name %>
+                  </h3>
+                  <p class="text-sm text-blue-600">
+                    Email: <%= teacher.email_address %>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       </div>
     </div>
