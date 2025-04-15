@@ -48,10 +48,26 @@ class ClassroomsController < ApplicationController
 
   def classroom_params
     params.require(:classroom).permit(
-      :name, 
+      :name,
       :school_year,
       classrooms_teachers_attributes: [:id, :teacher_id, :_destroy],
-      students_attributes: [ :first_name, :last_name, :dob, contacts_attributes: [ :name, :phone, :email, :relationship ] ]
+      students_attributes: [
+        :id,
+        :first_name,
+        :last_name,
+        :dob,
+        :active_classroom_id,
+        :school_id,
+        :_destroy,
+        contacts_attributes: [
+          :id,
+          :name,
+          :phone,
+          :email,
+          :relationship,
+          :_destroy
+        ]
+      ]
     )
   end
 end
