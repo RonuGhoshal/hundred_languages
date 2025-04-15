@@ -31,6 +31,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_155352) do
   create_table "classrooms_teachers", id: false, force: :cascade do |t|
     t.bigint "classroom_id", null: false
     t.bigint "teacher_id", null: false
+    t.index ["classroom_id", "teacher_id"], name: "index_classrooms_teachers_on_classroom_id_and_teacher_id", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
