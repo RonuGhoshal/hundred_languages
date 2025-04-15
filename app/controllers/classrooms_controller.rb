@@ -1,6 +1,10 @@
 class ClassroomsController < ApplicationController
-  before_action :set_school, only: [ :create, :new, :edit, :update ]
+  before_action :set_school, only: [ :create, :new, :edit, :update, :index ]
   before_action :set_classroom, only: [ :destroy, :show, :edit, :update ]
+
+  def index
+    @classrooms = @school.classrooms
+  end
 
   def create
     @classroom = @school.classrooms.build(classroom_params)
