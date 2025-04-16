@@ -3,7 +3,7 @@ class TeachersController < ApplicationController
   before_action :set_school, only: [ :index ]
 
   def index
-    @teachers = @school.teachers
+    @teachers = @school.teachers.includes(:classrooms, :classrooms_teachers)
   end
 
   def show
@@ -15,7 +15,7 @@ class TeachersController < ApplicationController
   private
 
   def set_teacher
-    @teacher = Teacher.find(params[:id])
+    @teacher = Teacher.includes(:classrooms, :classrooms_teachers).find(params[:id])
   end
 
   def set_school
