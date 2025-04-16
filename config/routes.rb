@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
-  resource :session
+  resource :session, only: [ :new, :create, :destroy ]
   resource :registration, only: %i[new create]
-  resources :passwords, param: :token
+  resources :passwords, param: :token, only: [ :new, :create, :edit, :update ]
   resources :invitations, only: [:create]
   resources :schools, only: [ :edit, :update ]
-  resources :schools do
+  resources :schools, only: [ :edit, :update ] do
     resources :classrooms, only: [ :create ]
   end
   resources :classrooms, only: [ :index, :show, :new, :edit, :update ]
-  resources :teachers, only: [ :index, :show, :edit, :update ]
-  resources :students, only: [ :index, :show, :edit ]
-  resources :notes, only: [ :index, :show, :new, :edit, :update ]
+  resources :teachers, only: [ :index, :show, :edit ]
+  resources :students, only: [ :index, :show ]
+  resources :notes, only: [ :index, :show, :new ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
