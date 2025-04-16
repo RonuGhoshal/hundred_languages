@@ -1,4 +1,6 @@
 class ClassroomsTeacher < ApplicationRecord
   belongs_to :classroom
   belongs_to :teacher
-end 
+
+  validates :classroom_id, uniqueness: { scope: :teacher_id }
+end
