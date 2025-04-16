@@ -37,18 +37,4 @@
       </div>
     <% end %>
   </div>
-
-  <%# Empty State %>
-  <% if @students.empty? %>
-    <div class="text-center py-12">
-      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-      </svg>
-      <h3 class="mt-2 text-lg font-medium text-gray-900">No students yet</h3>
-      <p class="mt-1 text-gray-500">Get started by adding a new student.</p>
-      <div class="mt-6">
-        <%= link_to "New Student", new_student_path, class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" %>
-      </div>
-    </div>
-  <% end %>
 </div>

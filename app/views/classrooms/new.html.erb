@@ -88,33 +88,6 @@
                     <%= student_fields.date_field :dob, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50", required: true %>
                   </div>
                 </div>
-
-                <!-- Student Contacts -->
-                <div class="mt-4">
-                  <h3 class="text-lg font-medium text-rose-700 mb-2">Contacts</h3>
-                  <%= student_fields.fields_for :contacts do |contact_fields| %>
-                    <div class="bg-white rounded-lg p-4 border border-rose-200 mt-2">
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <%= contact_fields.label :name, "Contact Name", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                          <%= contact_fields.text_field :name, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
-                        </div>
-                        <div>
-                          <%= contact_fields.label :phone, "Phone Number", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                          <%= contact_fields.telephone_field :phone, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
-                        </div>
-                        <div>
-                          <%= contact_fields.label :email, "Email", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                          <%= contact_fields.email_field :email, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
-                        </div>
-                        <div>
-                          <%= contact_fields.label :relationship, "Relationship", class: "block text-sm font-medium text-rose-700 mb-1" %>
-                          <%= contact_fields.text_field :relationship, class: "w-full rounded-lg border-rose-200 focus:border-rose-300 focus:ring focus:ring-rose-200 focus:ring-opacity-50" %>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
               </div>
             <% end %>
           </template>

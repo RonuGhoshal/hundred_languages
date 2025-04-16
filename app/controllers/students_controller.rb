@@ -3,7 +3,7 @@ class StudentsController < ApplicationController
   before_action :set_school, only: [ :index ]
 
   def index
-    @students = @school.students.includes(:contacts, :classrooms, :teachers, :active_classroom)
+    @students = @school.students.includes(:classrooms, :teachers, :active_classroom)
   end
 
   def show
@@ -12,7 +12,7 @@ class StudentsController < ApplicationController
   private
 
   def set_student
-    @student = Student.includes(:contacts, :classrooms, :teachers, :notes, :active_classroom).find(params[:id])
+    @student = Student.includes(:classrooms, :teachers, :notes, :active_classroom).find(params[:id])
   end
 
   def set_school

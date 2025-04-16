@@ -6,6 +6,7 @@ class Teacher < ApplicationRecord
   accepts_nested_attributes_for :classrooms_teachers, allow_destroy: true
   has_many :classrooms, through: :classrooms_teachers
   has_many :students, through: :classrooms
+  has_many :notes, class_name: "Note", foreign_key: "author_id"
   accepts_nested_attributes_for :school
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }

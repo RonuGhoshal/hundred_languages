@@ -45,17 +45,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_155353) do
     t.index ["note_id"], name: "index_comments_on_note_id"
   end
 
-  create_table "contacts", force: :cascade do |t|
-    t.string "name"
-    t.string "relationship"
-    t.string "phone"
-    t.string "email"
-    t.bigint "student_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["student_id"], name: "index_contacts_on_student_id"
-  end
-
   create_table "notes", force: :cascade do |t|
     t.text "content"
     t.bigint "author_id", null: false
@@ -119,7 +108,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_155353) do
   add_foreign_key "classrooms", "schools"
   add_foreign_key "comments", "notes"
   add_foreign_key "comments", "teachers", column: "author_id"
-  add_foreign_key "contacts", "students"
   add_foreign_key "notes", "teachers", column: "author_id"
   add_foreign_key "sessions", "teachers"
   add_foreign_key "students", "classrooms", column: "active_classroom_id"

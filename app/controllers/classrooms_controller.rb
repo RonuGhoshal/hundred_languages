@@ -62,15 +62,7 @@ class ClassroomsController < ApplicationController
         :dob,
         :active_classroom_id,
         :school_id,
-        :_destroy,
-        contacts_attributes: [
-          :id,
-          :name,
-          :phone,
-          :email,
-          :relationship,
-          :_destroy
-        ]
+        :_destroy
       ]
     )
   end

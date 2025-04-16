@@ -36,17 +36,4 @@
       </div>
     <% end %>
   </div>
-  <%# Empty State %>
-  <% if @classrooms.empty? %>
-    <div class="text-center py-12">
-      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-      <h3 class="mt-2 text-lg font-medium text-gray-900">No classrooms yet</h3>
-      <p class="mt-1 text-gray-500">Get started by creating a new classroom.</p>
-      <div class="mt-6">
-        <%= link_to "New Classroom", new_classroom_path, class: "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500" %>
-      </div>
-    </div>
-  <% end %>
 </div>

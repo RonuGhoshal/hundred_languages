@@ -72,17 +72,6 @@ students = [
   )
 ]
 
-# Create contacts for students
-students.each do |student|
-  Contact.create!(
-    name: "#{student.first_name}'s Parent",
-    relationship: "Parent",
-    phone: "555-123-4567",
-    email: "parent.#{student.last_name.downcase}@example.com",
-    student: student
-  )
-end
-
 # Create notes
 notes = [
   Note.create!(
