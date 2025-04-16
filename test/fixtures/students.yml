@@ -5,9 +5,11 @@ one:
   last_name: MyString
   dob: 2025-04-09
   active_classroom: one
+  school_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
 
 two:
   first_name: MyString
   last_name: MyString
   dob: 2025-04-09
   active_classroom: two
+  school_id: <%= ActiveRecord::FixtureSet.identify(:one) %>

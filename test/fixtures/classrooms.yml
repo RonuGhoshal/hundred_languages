@@ -3,7 +3,9 @@
 one:
   name: MyString
   school_year: MyString
+  school: one
 
 two:
   name: MyString
   school_year: MyString
+  school: two

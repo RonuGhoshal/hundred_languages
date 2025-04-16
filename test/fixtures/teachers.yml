@@ -1,0 +1,33 @@
+<% password_digest = BCrypt::Password.create("password") %>
+
+admin:
+  first_name: Admin
+  last_name: User
+  school_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  email_address: admin@example.com
+  password_digest: <%= password_digest %>
+  role: admin
+
+teacher:
+  first_name: Regular
+  last_name: Teacher
+  school_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  email_address: teacher@example.com
+  password_digest: <%= password_digest %>
+  role: teacher
+
+one:
+  first_name: One
+  last_name: Teacher
+  school_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  email_address: one@example.com
+  password_digest: <%= password_digest %>
+  role: teacher
+
+two:
+  first_name: Two
+  last_name: Teacher
+  school_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  email_address: two@example.com
+  password_digest: <%= password_digest %>
+  role: teacher

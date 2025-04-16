@@ -7,6 +7,7 @@ class Teacher < ApplicationRecord
   has_many :classrooms, through: :classrooms_teachers
   has_many :students, through: :classrooms
   has_many :notes, class_name: "Note", foreign_key: "author_id"
+  has_many :comments, class_name: "Comment", foreign_key: "author_id"
   accepts_nested_attributes_for :school
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
@@ -15,6 +16,13 @@ class Teacher < ApplicationRecord
   ROLES = %w[teacher admin].freeze
   # Validates the role of a teacher to ensure it is one of the defined roles
   validates :role, inclusion: { in: ROLES }
+
+  # Validations
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :email_address, presence: true, uniqueness: true
+  validates :password, presence: true, on: :create
+  validates :school, presence: true
 
   # Generates a unique invitation token for each teacher, used for teacher signup
   has_secure_token :invitation_token
