@@ -3,7 +3,7 @@ class SchoolsController < ApplicationController
   before_action :set_school
 
   def edit
-    @available_years = ["2024-2025", "2025-2026", "2026-2027", "2027-2028", "2028-2029", "2029-2030"]
+    @available_years = [ "2024-2025", "2025-2026", "2026-2027", "2027-2028", "2028-2029", "2029-2030" ]
   end
 
   def update

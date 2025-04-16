@@ -51,4 +51,4 @@ class InvitationsController < ApplicationController
       end
     end
   end
-end 
+end

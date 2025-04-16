@@ -28,11 +28,11 @@ class ClassroomsController < ApplicationController
       # Handle teachers separately
       if params[:classroom][:classrooms_teachers_attributes].present?
         teacher_ids = params[:classroom][:classrooms_teachers_attributes].values
-          .reject { |attrs| attrs[:_destroy] == '1' }
+          .reject { |attrs| attrs[:_destroy] == "1" }
           .map { |attrs| attrs[:teacher_id] }
         @classroom.update_teachers(teacher_ids)
       end
-      
+
       redirect_to classroom_path(@classroom), notice: "Classroom was successfully updated."
     else
       render :edit, status: :unprocessable_entity
