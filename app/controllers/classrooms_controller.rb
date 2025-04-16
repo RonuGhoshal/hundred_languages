@@ -3,7 +3,7 @@ class ClassroomsController < ApplicationController
   before_action :set_classroom, only: [ :destroy, :show, :edit, :update ]
 
   def index
-    @classrooms = @school.classrooms
+    @classrooms = @school.classrooms.includes(:students, :teachers, :classrooms_teachers)
   end
 
   def create

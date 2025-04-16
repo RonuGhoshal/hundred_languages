@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :classrooms, only: [ :index, :show, :new, :edit, :update ]
   resources :teachers, only: [ :index, :show, :edit, :update ]
   resources :students, only: [ :index, :show, :edit ]
+  resources :notes, only: [ :index, :show, :new, :edit, :update ]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
