@@ -104,3 +104,8 @@ classrooms[1].students << students[2] << students[3]
 classrooms[2].students << students[4]
 
 puts "Seed data created successfully!"
+
+Student.all.each do |student|
+  student.photo_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJUpgneQsvxDdoIInnxNnVH09aT4IE7rVXOg&s"
+  student.save!
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_10_155353) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_16_200249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -20,7 +20,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_155353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "school_id", null: false
-    t.integer "students_count", default: 0, null: false
     t.index ["school_id"], name: "index_classrooms_on_school_id"
   end
 
@@ -86,6 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_10_155353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "school_id", null: false
+    t.string "photo_url"
     t.index ["active_classroom_id"], name: "index_students_on_active_classroom_id"
     t.index ["school_id"], name: "index_students_on_school_id"
   end
