@@ -47,7 +47,7 @@ class ClassroomTest < ActiveSupport::TestCase
     teacher2.save!
 
     @classroom.save
-    @classroom.teachers << [teacher1, teacher2]
+    @classroom.teachers << [ teacher1, teacher2 ]
 
     assert_includes @classroom.teacher_ids, teacher1.id
     assert_includes @classroom.teacher_ids, teacher2.id
@@ -71,7 +71,7 @@ class ClassroomTest < ActiveSupport::TestCase
     teacher2.save!
 
     @classroom.save
-    @classroom.teachers << [teacher1, teacher2]
+    @classroom.teachers << [ teacher1, teacher2 ]
     @classroom.teachers.delete(teacher2)
 
     assert_includes @classroom.teacher_ids, teacher1.id
