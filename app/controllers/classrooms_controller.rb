@@ -21,6 +21,7 @@ class ClassroomsController < ApplicationController
   end
 
   def edit
+    @available_years = AVAILABLE_YEARS
   end
 
   def update
