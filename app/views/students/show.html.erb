@@ -11,7 +11,6 @@
         </div>
       </div>
     </div>
-
     <div class="w-full bg-white rounded-2xl shadow-md p-6 mb-8 border border-rose-100">
       <img 
         src="<%= @student.photo_url %>"
@@ -20,8 +19,6 @@
         style="width: 50%;"
       />
     </div>
-    
-
     <!-- Student Information Section -->
     <div class="bg-white rounded-2xl shadow-md p-6 border border-rose-100 mb-8">
       <h2 class="text-2xl font-semibold text-rose-700 mb-6">Student Information</h2>
@@ -31,19 +28,20 @@
           <ul class="space-y-4">
             <% @student.active_classroom.teachers.each do |teacher| %>
               <li class="bg-white rounded-lg shadow p-4 border border-teal-100">
-                <h4 class="text-teal-700 font-bold"><%= teacher.first_name %> <%= teacher.last_name %></h4>
-                <p class="text-teal-600"><strong>Email:</strong> <%= teacher.email_address %></p>
+                <%= link_to teacher_path(teacher) do %>
+                  <h4 class="text-teal-700 font-bold"><%= teacher.first_name %> <%= teacher.last_name %></h4>
+                  <p class="text-teal-600"><strong>Email:</strong> <%= teacher.email_address %></p>
+                <% end %>
               </li>
             <% end %>
           </ul>
         </div>
       </div>
     </div>
-
     <div class="bg-white rounded-2xl shadow-md p-6 border border-rose-100 mb-8">
       <h2 class="text-2xl font-semibold text-rose-700 mb-6">Notes</h2>
       <ul class="space-y-4">
-        <% @student.notes.each do |note| %> 
+        <% @student.notes.each do |note| %>
           <li class="bg-white rounded-lg shadow p-4 border border-rose-100">
             <%= link_to note_path(note) do %>
               <p class="text-rose-600"><%= note.content %></p>
