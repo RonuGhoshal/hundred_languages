@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resource :registration, only: %i[new create]
   resources :passwords, param: :token, only: [ :new, :create, :edit, :update ]
   resources :invitations, only: [ :create ]
-  resources :schools, only: [ :edit, :update ]
   resources :schools, only: [ :edit, :update ] do
     resources :classrooms, only: [ :create ]
   end

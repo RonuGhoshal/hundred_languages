@@ -68,6 +68,7 @@ group :test do
   gem "selenium-webdriver"
   gem "factory_bot_rails"
   gem "shoulda-matchers"
+  gem "rails-controller-testing"
 end
 
 gem "tailwindcss-rails", "~> 4.2"
