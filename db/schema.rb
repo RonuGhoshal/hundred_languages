@@ -15,8 +15,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_200249) do
   enable_extension "pg_catalog.plpgsql"
 
   create_table "classrooms", force: :cascade do |t|
-    t.string "name"
-    t.string "school_year"
+    t.string "name", null: false
+    t.string "school_year", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "school_id", null: false

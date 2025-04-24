@@ -11,21 +11,21 @@ classrooms = [
 # Create or find teachers
 teachers = [
   Teacher.find_or_create_by!(email_address: "ms.smith@sunshine.edu") do |teacher|
-    teacher.password_digest = BCrypt::Password.create("password123")
+    teacher.password = BCrypt::Password.create("password123")
     teacher.first_name = "Sarah"
     teacher.last_name = "Smith"
     teacher.school_id = school.id
     teacher.role = "teacher"
   end,
   Teacher.find_or_create_by!(email_address: "mr.johnson@sunshine.edu") do |teacher|
-    teacher.password_digest = BCrypt::Password.create("password123")
+    teacher.password = BCrypt::Password.create("password123")
     teacher.first_name = "Michael"
     teacher.last_name = "Johnson"
     teacher.school_id = school.id
     teacher.role = "teacher"
   end,
   Teacher.find_or_create_by!(email_address: "ms.williams@sunshine.edu") do |teacher|
-    teacher.password_digest = BCrypt::Password.create("password123")
+    teacher.password = BCrypt::Password.create("password123")
     teacher.first_name = "Emily"
     teacher.last_name = "Williams"
     teacher.school_id = school.id
