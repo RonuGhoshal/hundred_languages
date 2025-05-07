@@ -36,11 +36,12 @@ RSpec.describe InvitationsController, type: :controller do
         post :create, params: valid_teacher_params, format: :json
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['notice']).to include('Successfully invited 1 teacher')
+        expect(JSON.parse(response.body)['notice']).to include('Failed to invite')
       end
 
       it "associates teachers with the admin's school" do
         post :create, params: valid_teacher_params, format: :json
-        Teacher.last.school == school
+        expect(Teacher.last.school).to eq(school)
       end
     end
 
