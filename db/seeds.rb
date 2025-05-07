@@ -1,5 +1,5 @@
-# use existing school
-school = School.find(1)
+# Create school
+school = School.create!(name: "Sunshine School")
 
 # Create classrooms
 classrooms = [
