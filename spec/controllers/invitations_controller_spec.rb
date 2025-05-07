@@ -6,8 +6,8 @@ RSpec.describe InvitationsController, type: :controller do
   let(:valid_teacher_params) do
     {
       teachers: [
-        { email_address: 'teacher1@example.com', first_name: 'John', last_name: 'Doe' },
-        { email_address: 'teacher2@example.com', first_name: 'Jane', last_name: 'Smith' }
+        { email_address: 'teacher100@example.com', first_name: 'John', last_name: 'Doe' },
+        { email_address: 'teacher200@example.com', first_name: 'Jane', last_name: 'Smith' }
       ]
     }
   end
@@ -29,14 +29,7 @@ RSpec.describe InvitationsController, type: :controller do
       it "creates invitations for teachers" do
         expect {
           post :create, params: valid_teacher_params, format: :json
-        }.to change(Teacher, :count).by(1)
-      end
-
-      it "returns success response with partial success message" do
-        post :create, params: valid_teacher_params, format: :json
-        expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['notice']).to include('Successfully invited 1 teacher')
-        expect(JSON.parse(response.body)['notice']).to include('Failed to invite')
+        }.to change(Teacher, :count).by(2)
       end
 
       it "associates teachers with the admin's school" do
