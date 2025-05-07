@@ -1,5 +1,5 @@
 # Create school
-school = School.create!(name: "Sunshine School", address: "123 Main St", city: "Anytown", state: "CA", zip: "12345", phone: "555-1234", email: "info@sunshine.edu")
+school = School.create!(name: "Sunshine School", address: "123 Main St", city: "Anytown", state: "CA", zip: "12345", phone: "555-1234")
 
 # Create classrooms
 classrooms = [
