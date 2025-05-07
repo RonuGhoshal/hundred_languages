@@ -100,4 +100,4 @@ RSpec.describe InvitationsController, type: :controller do
       expect(JSON.parse(response.body)['alert']).to eq("You don't have permission to invite teachers.")
     end
   end
-end 
+end

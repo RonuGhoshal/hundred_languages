@@ -27,4 +27,4 @@ RSpec.describe School, type: :model do
       expect(school).to have_many(:students)
     end
   end
-end 
+end

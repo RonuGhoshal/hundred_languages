@@ -21,4 +21,4 @@ RSpec.configure do |config|
   config.before(:each, type: :controller) do
     Current.session = nil
   end
-end 
+end

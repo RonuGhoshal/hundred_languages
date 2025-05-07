@@ -69,4 +69,4 @@ RSpec.describe Teacher, type: :model do
       expect(teacher).to have_many(:sessions)
     end
   end
-end 
+end

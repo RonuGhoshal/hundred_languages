@@ -44,7 +44,7 @@ RSpec.describe Classroom, type: :model do
     let(:teacher2) { create(:teacher, school: school) }
 
     before do
-      classroom.teachers << [teacher1, teacher2]
+      classroom.teachers << [ teacher1, teacher2 ]
     end
 
     it "adds new teachers" do

@@ -4,4 +4,4 @@ FactoryBot.define do
     association :author, factory: :teacher
     association :note
   end
-end 
+end

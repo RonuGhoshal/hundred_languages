@@ -7,4 +7,4 @@ FactoryBot.define do
     association :school
     association :active_classroom, factory: :classroom
   end
-end 
+end

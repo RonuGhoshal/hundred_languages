@@ -7,4 +7,4 @@ FactoryBot.define do
     role { "teacher" }
     association :school
   end
-end 
+end

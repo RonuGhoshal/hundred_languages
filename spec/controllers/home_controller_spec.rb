@@ -13,7 +13,7 @@ RSpec.describe HomeController, type: :controller do
   describe "GET #index" do
     it "assigns the teacher's classrooms as @classrooms" do
       get :index
-      expect(assigns(:classrooms)).to eq([classroom])
+      expect(assigns(:classrooms)).to eq([ classroom ])
     end
 
     it "includes associated students, teachers, and classrooms_teachers" do
@@ -23,4 +23,4 @@ RSpec.describe HomeController, type: :controller do
       expect(assigns(:classrooms).first.association(:classrooms_teachers).loaded?).to be true
     end
   end
-end 
+end

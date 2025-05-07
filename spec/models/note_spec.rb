@@ -33,4 +33,4 @@ RSpec.describe Note, type: :model do
       expect(note).to have_many(:comments)
     end
   end
-end 
+end

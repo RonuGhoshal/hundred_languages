@@ -61,4 +61,4 @@ RSpec.describe SchoolsController, type: :controller do
       expect(flash[:alert]).to eq("You must be an admin to perform this action.")
     end
   end
-end 
+end

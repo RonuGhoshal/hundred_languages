@@ -35,4 +35,4 @@ RSpec.describe Comment, type: :model do
       expect(comment).to belong_to(:note)
     end
   end
-end 
+end
